@@ -13,50 +13,54 @@ void swap(int *a, int *b)
 }
 
 /**
- * hoare_partition - partitions an array using Hoare's scheme
- * @array: pointer to the array
- * @low: starting index of the subarray
- * @high: ending index of the subarray
- * @size: size of the array
- * Return: index of the partition point
+ * hoare_partition - Order a subset of an array of integers
+ * according to the hoare partition scheme.
+ * @array: The array of integers.
+ * @size: The size of the array.
+ * @left: The starting index of the subset to order.
+ * @right: The ending index of the subset to order.
+ * Return: The final partition index.
  */
-int hoare_partition(int *array, int low, int high, size_t size)
+int hoare_partition(int *array, size_t size, int left, int right)
 {
-	int pivot = array[low];
-	int i = low - 1;
-	int j = high + 1;
+	int pivot, above, below;
 
-	while (1)
+	pivot = array[right];
+	for (above = left - 1, below = right + 1; above < below;)
 	{
 		do {
-			i++;
-		} while (array[i] < pivot);
+			above++;
+		} while (array[above] < pivot);
 		do {
-			j--;
-		} while (array[j] > pivot);
-		if (i >= j)
-			return (j);
-		swap(&array[i], &array[j]);
-		print_array(array, size);
+			below--;
+		} while (array[below] > pivot);
+
+		if (above < below)
+		{
+			swap(array + above, array + below);
+			print_array(array, size);
+		}
 	}
+
+	return (above);
 }
 
 /**
- * quick_sort_hoare_rec - recursively sorts a subarray using Quick sort
- * @array: pointer to the array
- * @low: starting index of the subarray
- * @high: ending index of the subarray
- * @size: size of the array
+ * hoare_sort - Implement the quicksort algorithm through recursion.
+ * @array: An array of integers to sort.
+ * @size: The size of the array.
+ * @left: The starting index of the array partition to order.
+ * @right: The ending index of the array partition to order.
  */
-void quick_sort_hoare_rec(int *array, int low, int high, size_t size)
+void hoare_sort(int *array, size_t size, int left, int right)
 {
-	int p;
+	int part;
 
-	if (low < high)
+	if (right - left > 0)
 	{
-		p = hoare_partition(array, low, high, size);
-		quick_sort_hoare_rec(array, low, p, size);
-		quick_sort_hoare_rec(array, p + 1, high, size);
+		part = hoare_partition(array, size, left, right);
+		hoare_sort(array, size, left, part - 1);
+		hoare_sort(array, size, part, right);
 	}
 }
 
@@ -72,5 +76,5 @@ void quick_sort_hoare(int *array, size_t size)
 	if (array == NULL || size < 2)
 		return;
 
-	quick_sort_hoare_rec(array, 0, size - 1, size);
+	hoare_sort(array, size, 0, size - 1);
 }
