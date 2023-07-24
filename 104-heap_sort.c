@@ -15,26 +15,6 @@ void swap(int *array, int i, int j)
 }
 
 /**
- * print_array - Print an array of integers.
- * @array: The array of integers to print.
- * @size: The size of the array.
- */
-void print_array(const int *array, size_t size)
-{
-	size_t i;
-
-	i = 0;
-	while (array && i < size)
-	{
-		if (i > 0)
-			printf(", ");
-		printf("%d", array[i]);
-		++i;
-	}
-	printf("\n");
-}
-
-/**
  * sift_down - Sift down a node in a heap.
  * @array: The array of integers to sift down.
  * @start: The index of the node to sift down.
