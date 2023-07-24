@@ -1,5 +1,5 @@
 # Sort It Out: A C Project on Sorting Algorithms and Big O Notation
-
+[![Language: C](https://img.shields.io/badge/Language-C-blue.svg)](https://en.wikipedia.org/wiki/C_(programming_language))
 ## 🚀 introduction:
 This project is a group assignment for **ALX SE**, where we implement four different sorting algorithms in C and analyze their time complexity using Big O notation. The project aims to help us learn about:
 - How to select the best sorting algorithm for a given input
